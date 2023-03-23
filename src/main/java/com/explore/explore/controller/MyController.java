@@ -23,20 +23,8 @@ public class MyController {
 
     // get spots
     @GetMapping("/spots")
-    // public List<Integer> getSpots() {
-    // List<Integer> list;
-    // list = new ArrayList<>();
-    // list.add(3);
-    // list.add(5);
-    // return this.SpotService.getSpots();
-    // }
-
     public List<Spot> getSpots() {
-        
-        List<Spot> list;
-        list = new ArrayList<>();
-        list.add(new Spot(1, "38 Block", "Near 38"));
-        list.add(new Spot(0, "UNIMAll", "Near Me"));
-        return list;
+        return this.SpotService.getSpots();
     }
+
 }
