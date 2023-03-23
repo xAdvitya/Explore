@@ -19,3 +19,4 @@ additionally you will need postman to request the api which you can download fro
 
 This API provides the following endpoints:
 - ```GET /spots: Retrieves a list of all spots.```
+- ```GET /spots/{spotId}: Retrieves the spot with specific id.```
