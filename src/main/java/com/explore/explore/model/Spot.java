@@ -1,13 +1,18 @@
 package com.explore.explore.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import com.explore.explore.model.Review;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonInclude;
+// import com.fasterxml.jackson.annotation.JsonAutoDetect;
+// import com.fasterxml.jackson.annotation.JsonProperty;
+// import com.fasterxml.jackson.annotation.JsonInclude;
 
 // @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+
 @Document("spots")
 public class Spot {
     // @JsonProperty("id")
@@ -18,10 +23,14 @@ public class Spot {
     // @JsonProperty("location")
     private String location;
 
-    public Spot(long id, String name, String location) {
+    // private Review review;
+    List<Review> review = new ArrayList<Review>();
+
+    public Spot(long id, String name, String location, List<Review> review) {
         this.id = id;
         this.name = name;
         this.location = location;
+        this.review = review;
     }
 
     // getters and setters here
@@ -38,6 +47,10 @@ public class Spot {
         return location;
     }
 
+    public List<Review> getReview() {
+        return review;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -46,7 +59,11 @@ public class Spot {
         this.name = name;
     }
 
-    public void setId(String location) {
+    public void setLocation(String location) {
         this.location = location;
+    }
+
+    public void setReview(List<Review> review) {
+        this.review = review;
     }
 }

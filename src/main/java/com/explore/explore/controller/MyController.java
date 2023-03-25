@@ -10,19 +10,21 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.explore.explore.model.Spot;
+import com.explore.explore.model.User;
+import com.explore.explore.model.Review;
 import com.explore.explore.repository.SpotRepository;
-import com.explore.explore.repository.SpotService;
+import com.explore.explore.repository.UserRepository;
 
 @RestController
-@RequestMapping("/spot")
+// @RequestMapping("/spot")
 public class MyController {
 
     @Autowired
     public SpotRepository spotRepository;
-
+    @Autowired
+    public UserRepository userRepository;
 
     // get
 
@@ -38,5 +40,32 @@ public class MyController {
         Spot save = this.spotRepository.save(spot);
         return ResponseEntity.ok(save);
     }
+
+    // get
+    @GetMapping("/auth/{userName}")
+    public ResponseEntity<?> getUser(@PathVariable String userName) {
+        // return ResponseEntity.ok(this.userRepository.findOne({"userName":"admin"}));
+        User user = this.userRepository.findByUserName(userName);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(user);
+        }
+
+    }
+
+    // post user
+    @PostMapping("/auth")
+    public ResponseEntity<?> addUser(@RequestBody User user) {
+        User save = this.userRepository.save(user);
+        return ResponseEntity.ok(save);
+    }
+
+
+    //post reviews
+    // @PostMapping("/{userName}/{spotId}")
+    // public ResponseEntity<?> addReview(@RequestBody Review review){
+    //     Review re = this.spotRepository.
+    // }
 
 }
