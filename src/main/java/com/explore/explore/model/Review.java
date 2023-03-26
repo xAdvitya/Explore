@@ -1,16 +1,17 @@
 package com.explore.explore.model;
 
 public class Review {
-    private int rating;
-    private String description;
+    private Double rating;
+    private String reviewText;
     private String userName;
 
-    public Review(int rating, String description) {
+    public Review(String userName, String reviewText,Double rating) {
+        this.userName=userName;
         this.rating = rating;
-        this.description = description;
+        this.reviewText = reviewText;
     }
 
-    public int getRating() {
+    public Double getRating() {
         return rating;
     }
 
@@ -18,16 +19,16 @@ public class Review {
         return userName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getreviewText() {
+        return reviewText;
     }
 
-    public void setId(int rating) {
+    public void setId(Double rating) {
         this.rating = rating;
     }
 
-    public void setName(String description) {
-        this.description = description;
+    public void setName(String reviewText) {
+        this.reviewText = reviewText;
     }
 
     public void setUserName(String name) {

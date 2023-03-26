@@ -1,7 +1,7 @@
 package com.explore.explore.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +16,9 @@ import com.explore.explore.model.User;
 import com.explore.explore.model.Review;
 import com.explore.explore.repository.SpotRepository;
 import com.explore.explore.repository.UserRepository;
+import com.explore.explore.utility.PasswordRequest;
 
 @RestController
-// @RequestMapping("/spot")
 public class MyController {
 
     @Autowired
@@ -27,29 +27,40 @@ public class MyController {
     public UserRepository userRepository;
 
     // get
-
-    @GetMapping("/")
+    @GetMapping("/spots")
     public ResponseEntity<?> getSpots() {
         return ResponseEntity.ok(this.spotRepository.findAll());
 
     }
 
+    // get a particular spot
+    @GetMapping("/spot/{spotId}")
+    public ResponseEntity<?> getSpot(@PathVariable Long spotId) {
+        Optional<Spot> optionalSpot = this.spotRepository.findById(spotId);
+        Spot spot = optionalSpot.orElse(new Spot());
+        return ResponseEntity.ok(spot);
+    }
+
     // post spots
-    @PostMapping("/")
+    @PostMapping("/spots")
     public ResponseEntity<?> addSpots(@RequestBody Spot spot) {
         Spot save = this.spotRepository.save(spot);
         return ResponseEntity.ok(save);
     }
 
-    // get
+    // get user , authenticate
     @GetMapping("/auth/{userName}")
-    public ResponseEntity<?> getUser(@PathVariable String userName) {
+    public ResponseEntity<?> getUser(@PathVariable String userName, @RequestBody PasswordRequest passwordRequest) {
         // return ResponseEntity.ok(this.userRepository.findOne({"userName":"admin"}));
         User user = this.userRepository.findByUserName(userName);
         if (user == null) {
             return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.ok(user);
+
+            if (user.getPassword().equals(passwordRequest.getPassword())) {
+                return ResponseEntity.ok(user);
+            }
+            return ResponseEntity.notFound().build();
         }
 
     }
@@ -61,11 +72,31 @@ public class MyController {
         return ResponseEntity.ok(save);
     }
 
+    // post reviews
+    @PostMapping("/review/{spotId}/{userName}")
+    public ResponseEntity<?> addReview(@PathVariable Long spotId, @PathVariable String userName,
+            @RequestBody Review reviewReq) {
 
-    //post reviews
-    // @PostMapping("/{userName}/{spotId}")
-    // public ResponseEntity<?> addReview(@RequestBody Review review){
-    //     Review re = this.spotRepository.
-    // }
+        String reviewText = reviewReq.getreviewText();
+        Double rating = reviewReq.getRating();
+
+        Optional<Spot> optionalSpot = this.spotRepository.findById(spotId);
+        Spot spot = optionalSpot.orElse(new Spot());
+
+        Review review = new Review(userName, reviewText, rating);
+
+        spot.getReview().add(review);
+        this.spotRepository.save(spot);
+
+        return ResponseEntity.ok(review);
+    }
+
+    // get by category
+
+    @GetMapping("/spots/category/{category}")
+    public ResponseEntity<?> getSpotsByCate(@PathVariable String category) {
+        List<Spot> spots = this.spotRepository.findByCategory(category);
+        return ResponseEntity.ok(spots);
+    }
 
 }
