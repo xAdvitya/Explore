@@ -16,14 +16,17 @@ public class Spot {
 
     private String location;
 
+    private String image;
+
     private List<String> category = new ArrayList<String>();
 
     private List<Review> review = new ArrayList<Review>();
 
-    public Spot(long id, String name, String location, List<Review> review, List<String> category) {
+    public Spot(long id, String name, String location, String image, List<Review> review, List<String> category) {
         this.id = id;
         this.name = name;
         this.location = location;
+        this.image = image;
         this.review = review;
         this.category = category;
     }
@@ -45,6 +48,10 @@ public class Spot {
         return location;
     }
 
+    public String getImage() {
+        return image;
+    }
+
     public List<Review> getReview() {
         return review;
     }
@@ -63,6 +70,10 @@ public class Spot {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setReview(List<Review> review) {
