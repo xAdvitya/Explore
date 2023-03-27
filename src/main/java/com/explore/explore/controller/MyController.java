@@ -51,7 +51,7 @@ public class MyController {
     // get user , authenticate
     @GetMapping("/auth/{userName}")
     public ResponseEntity<?> getUser(@PathVariable String userName, @RequestBody PasswordRequest passwordRequest) {
-        // return ResponseEntity.ok(this.userRepository.findOne({"userName":"admin"}));
+
         User user = this.userRepository.findByUserName(userName);
         if (user == null) {
             return ResponseEntity.notFound().build();
@@ -66,8 +66,18 @@ public class MyController {
     }
 
     // post user
+    // signup
     @PostMapping("/auth")
-    public ResponseEntity<?> addUser(@RequestBody User user) {
+    public ResponseEntity<?> addUser(@RequestBody User userRequest) {
+
+        String userName = userRequest.getUserName();
+
+        User user = this.userRepository.findByUserName(userName);
+
+        if (user != null) {
+            return ResponseEntity.notFound().build();
+        }
+
         User save = this.userRepository.save(user);
         return ResponseEntity.ok(save);
     }

@@ -5,27 +5,19 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import com.explore.explore.model.Review;
-
-// import com.fasterxml.jackson.annotation.JsonAutoDetect;
-// import com.fasterxml.jackson.annotation.JsonProperty;
-// import com.fasterxml.jackson.annotation.JsonInclude;
-
-// @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 
 @Document("spots")
 public class Spot {
-    // @JsonProperty("id")
+
     @Id
     private long id;
-    // @JsonProperty("name")
+
     private String name;
-    // @JsonProperty("location")
+
     private String location;
 
     private List<String> category = new ArrayList<String>();
 
-    // private Review review;
     private List<Review> review = new ArrayList<Review>();
 
     public Spot(long id, String name, String location, List<Review> review, List<String> category) {
