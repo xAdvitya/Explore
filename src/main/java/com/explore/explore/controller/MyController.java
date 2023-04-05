@@ -51,7 +51,7 @@ public class MyController {
     }
 
     // get user , authenticate
-    @GetMapping("/auth/{userName}")
+    @PostMapping("/auth/{userName}")
     public ResponseEntity<?> getUser(@PathVariable String userName, @RequestBody PasswordRequest passwordRequest) {
 
         User user = this.userRepository.findByUserName(userName);
