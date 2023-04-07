@@ -18,6 +18,7 @@ import com.explore.explore.model.Review;
 import com.explore.explore.repository.SpotRepository;
 import com.explore.explore.repository.UserRepository;
 import com.explore.explore.utility.PasswordRequest;
+import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -79,8 +80,9 @@ public class MyController {
         if (user != null) {
             return ResponseEntity.notFound().build();
         }
+        User newUser = new User(UUID.randomUUID().toString(), userName, userRequest.getPassword());
 
-        User save = this.userRepository.save(user);
+        User save = this.userRepository.save(newUser);
         return ResponseEntity.ok(save);
     }
 

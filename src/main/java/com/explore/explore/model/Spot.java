@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Spot {
 
     @Id
-    private long id;
+    private String id;
 
     private String name;
 
@@ -22,7 +22,7 @@ public class Spot {
 
     private List<Review> review = new ArrayList<Review>();
 
-    public Spot(long id, String name, String location, String image, List<Review> review, List<String> category) {
+    public Spot(String id, String name, String location, String image, List<Review> review, List<String> category) {
         this.id = id;
         this.name = name;
         this.location = location;
@@ -36,7 +36,7 @@ public class Spot {
     public Spot() {
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
@@ -60,7 +60,7 @@ public class Spot {
         return category;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
