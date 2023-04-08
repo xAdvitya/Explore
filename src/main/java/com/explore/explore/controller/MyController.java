@@ -47,6 +47,8 @@ public class MyController {
     // post spots
     @PostMapping("/spots")
     public ResponseEntity<?> addSpots(@RequestBody Spot spot) {
+
+        spot.setId(UUID.randomUUID().toString());
         Spot save = this.spotRepository.save(spot);
         return ResponseEntity.ok(save);
     }
