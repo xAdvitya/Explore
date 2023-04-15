@@ -30,7 +30,7 @@ public class MyController {
     public UserRepository userRepository;
 
     // get
-    @GetMapping("/spots")
+    @GetMapping("/spots/category/all")
     public ResponseEntity<?> getSpots() {
         return ResponseEntity.ok(this.spotRepository.findAll());
 
