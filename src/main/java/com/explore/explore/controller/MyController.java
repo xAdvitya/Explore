@@ -38,7 +38,7 @@ public class MyController {
 
     // get a particular spot
     @GetMapping("/spot/{spotId}")
-    public ResponseEntity<?> getSpot(@PathVariable Long spotId) {
+    public ResponseEntity<?> getSpot(@PathVariable String spotId) {
         Optional<Spot> optionalSpot = this.spotRepository.findById(spotId);
         Spot spot = optionalSpot.orElse(new Spot());
         return ResponseEntity.ok(spot);
@@ -90,7 +90,7 @@ public class MyController {
 
     // post reviews
     @PostMapping("/review/{spotId}/{userName}")
-    public ResponseEntity<?> addReview(@PathVariable Long spotId, @PathVariable String userName,
+    public ResponseEntity<?> addReview(@PathVariable String spotId, @PathVariable String userName,
             @RequestBody Review reviewReq) {
 
         String reviewText = reviewReq.getreviewText();
