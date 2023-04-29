@@ -111,6 +111,11 @@ public class MyController {
 
     @GetMapping("/spots/category/{category}")
     public ResponseEntity<?> getSpotsByCate(@PathVariable String category) {
+
+        // return ResponseEntity.ok(category);
+        if (category == "all") {
+            return ResponseEntity.ok(this.spotRepository.findAll());
+        }
         List<Spot> spots = this.spotRepository.findByCategory(category);
         return ResponseEntity.ok(spots);
     }
