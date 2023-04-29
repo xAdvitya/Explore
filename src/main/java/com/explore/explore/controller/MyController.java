@@ -113,7 +113,7 @@ public class MyController {
     public ResponseEntity<?> getSpotsByCate(@PathVariable String category) {
 
         // return ResponseEntity.ok(category);
-        if (category == "all") {
+        if (category.equals("all")) {
             return ResponseEntity.ok(this.spotRepository.findAll());
         }
         List<Spot> spots = this.spotRepository.findByCategory(category);
