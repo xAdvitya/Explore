@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.explore.explore.model.Spot;
 
 @Repository
-public interface SpotRepository extends MongoRepository<Spot, Long> {
+public interface SpotRepository extends MongoRepository<Spot, String> {
     List<Spot> findByCategory(String category);
 }
