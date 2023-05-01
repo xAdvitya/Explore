@@ -18,17 +18,21 @@ public class Spot {
 
     private String image;
 
+    private String description;
+
     private List<String> category = new ArrayList<String>();
 
     private List<Review> review = new ArrayList<Review>();
 
-    public Spot(String id, String name, String location, String image, List<Review> review, List<String> category) {
+    public Spot(String id, String name, String location, String image, List<Review> review, List<String> category,
+            String description) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.image = image;
         this.review = review;
         this.category = category;
+        this.description = description;
     }
 
     // getters and setters here
@@ -60,6 +64,10 @@ public class Spot {
         return category;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -82,5 +90,9 @@ public class Spot {
 
     public void setCategory(List<String> category) {
         this.category = category;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
