@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.HttpStatus;
 
 import com.explore.explore.model.Spot;
 import com.explore.explore.model.User;
@@ -32,9 +33,16 @@ public class MyController {
     // get
     @GetMapping("/spots/category/all")
     public ResponseEntity<?> getSpots() {
-        return ResponseEntity.ok(this.spotRepository.findAll());
-
+        try {
+            List<Spot> spots = this.spotRepository.findAll();
+            return ResponseEntity.ok(spots);
+        } catch (Exception e) {
+            // Handle the exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while retrieving spots.");
+        }
     }
+    
 
     // get a particular spot
     @GetMapping("/spot/{spotId}")
